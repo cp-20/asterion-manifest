@@ -1,0 +1,4 @@
+# Refer to https://github.com/viaduct-ai/kustomize-sops#getting-started-tutorial
+creation_rules:
+  - unencrypted_regex: '^(apiVersion|metadata|kind|type)$'
+    age: 'age1ufem39g0w04wvc48n3q54ck26japsp9pe6fhykyw73q9u95xf5sqyv3u7j'

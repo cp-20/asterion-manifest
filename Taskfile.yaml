@@ -1,0 +1,12 @@
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - echo "Tasks:\n  build\n  test\n  clean"
+  encrypt-secret:
+    cmds:
+      - sops --encrypt --config .sops.yaml --in-place {{.CLI_ARGS}}
+  edit-secret:
+    cmds:
+      - sops --config .sops.yaml --in-place {{.CLI_ARGS}}

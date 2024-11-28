@@ -1,0 +1,16 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd-server
+spec:
+  routes:
+    - match: Host(`cd.cp20.dev`)
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: argocd-server
+spec:
+  dnsNames:
+    - cd.cp20.dev

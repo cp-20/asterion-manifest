@@ -1,0 +1,17 @@
+resources:
+  # renovate:github-url
+  - https://github.com/cert-manager/cert-manager/releases/download/v1.16.1/cert-manager.yaml
+  # renovate:github-url
+  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.12.6/manifests/install.yaml
+  - appset-certificate.yaml
+  - appset-ingress-route.yaml
+  - certificate.yaml
+  - ingress-route.yaml
+
+configMapGenerator:
+  - name: helm-replace
+    files:
+      - config/helm
+
+generators:
+  - ksops.yaml

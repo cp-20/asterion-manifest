@@ -1,0 +1,30 @@
+# ref: https://k3d.io/v5.7.4/usage/configfile/#all-options-example
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: asterion
+servers: 1
+agents: 2
+kubeAPI:
+  host: 'asterion.cp20.local'
+  hostIP: '127.0.0.1'
+  hostPort: '6445'
+network: asterion-net
+options:
+  k3d:
+    wait: true
+    timeout: '60s'
+    disableLoadbalancer: false
+    disableImageVolume: false
+    disableRollback: false
+    loadbalancer:
+      configOverrides:
+        - settings.workerConnections=2048
+  k3s:
+    extraArgs:
+      - arg: --tls-san=asterion.cp20.local
+        nodeFilters:
+          - server:*
+  kubeconfig:
+    updateDefaultKubeconfig: true
+    switchCurrentContext: true

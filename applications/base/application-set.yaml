@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: application-set
+  namespace: argocd
+
+# ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators-Git/
+spec:
+  goTemplate: true
+  goTemplateOptions:
+    - 'missingkey=error'
+  generators:
+    - git:
+        repoURL: https://github.com/cp-20/asterion-manifest
+        revision: main
+        directories:
+          - path: '*'
+          - path: 'applications'
+            exclude: true
+  template:
+    metadata:
+      name: '{{.path.basename}}'
+    spec:
+      destination:
+        namespace: '{{.path.basename}}'
+        server: https://kubernetes.default.svc
+      project: default
+      source:
+        repoURL: https://github.com/cp-20/asterion-manifest
+        path: '{{.path.path}}'
+        targetRevision: main
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          prune: true
+          selfHeal: true

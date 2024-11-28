@@ -1,0 +1,10 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: application-set
+  namespace: argocd
+spec:
+  template:
+    spec:
+      destination:
+        namespace: '{{.path.basename}}/local'
