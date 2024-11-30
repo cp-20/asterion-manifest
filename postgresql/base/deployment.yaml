@@ -16,9 +16,17 @@ spec:
       containers:
         - name: postgresql
           image: postgres:16
-          envFrom:
-            - configMapRef:
-                name: postgresql-config
+          env:
+            - name: POSTGRES_PASSWORD_ROOT
+              valueFrom:
+                secretKeyRef:
+                  name: password
+                  key: root
+            - name: POSTGRES_PASSWORD_TRAQING
+              valueFrom:
+                secretKeyRef:
+                  name: password
+                  key: traqing
           resources:
             limits:
               memory: '1024Mi'
