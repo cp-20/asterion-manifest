@@ -35,22 +35,21 @@ spec:
                   - /bin/sh
                   - -c
                   - |
-                    sleep 10
                     psql -U postgres -h localhost -c "
-                      DO $$
+                      DO \$\$
                       BEGIN
                           IF NOT EXISTS (SELECT FROM pg_database WHERE datname = 'traqing') THEN
                               CREATE DATABASE traqing;
                           END IF;
                       END
-                      $$;
-                      DO $$
+                      \$\$;
+                      DO \$\$
                       BEGIN
                           IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'traqing') THEN
                               CREATE USER traqing WITH ENCRYPTED PASSWORD '${POSTGRES_PASSWORD_TRAQING}';
                           END IF;
                       END
-                      $$;
+                      \$\$;
                       GRANT ALL PRIVILEGES ON DATABASE traqing TO traqing;"
           resources:
             limits:
