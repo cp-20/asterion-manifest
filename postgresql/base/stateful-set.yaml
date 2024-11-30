@@ -36,22 +36,9 @@ spec:
                   - -c
                   - |
                     sleep 10
-                    psql -U postgres -h localhost -c "
-                      DO \$\$
-                      BEGIN
-                          IF NOT EXISTS (SELECT FROM pg_database WHERE datname = 'traqing') THEN
-                              CREATE DATABASE traqing;
-                          END IF;
-                      END
-                      \$\$;
-                      DO \$\$
-                      BEGIN
-                          IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'traqing') THEN
-                              CREATE USER traqing WITH ENCRYPTED PASSWORD '${POSTGRES_PASSWORD_TRAQING}';
-                          END IF;
-                      END
-                      \$\$;
-                      GRANT ALL PRIVILEGES ON DATABASE traqing TO traqing;"
+                    psql -U postgres -tc "SELECT 1 FROM pg_database WHERE datname = 'traqing'" | grep -q 1 || psql -U postgres -c "CREATE DATABASE traqing;"
+                    psql -U postgres -tc "SELECT 1 FROM pg_roles WHERE rolname = 'traqing'" | grep -q 1 || psql -U postgres -c "CREATE USER traqing WITH PASSWORD '${POSTGRES_PASSWORD_TRAQING}';"
+                    psql -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE traqing TO traqing;"
           resources:
             limits:
               memory: '1024Mi'
