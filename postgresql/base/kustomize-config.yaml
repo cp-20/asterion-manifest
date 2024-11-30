@@ -1,6 +1,0 @@
-# For Secret name with hash suffix substitution
-nameReference:
-  - kind: Secret
-    fieldSpecs:
-      - kind: StatefulSet
-        path: spec/template/spec/containers/env/valueFrom/secretKeyRef/name
