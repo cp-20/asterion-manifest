@@ -18,7 +18,7 @@ spec:
         - name: postgresql
           image: postgres:16
           env:
-            - name: POSTGRES_PASSWORD_ROOT
+            - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: postgresql-password

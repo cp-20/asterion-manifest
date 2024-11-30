@@ -1,7 +1,6 @@
 #!/bin/bash
 
 cat <<EOF >/docker-entrypoint-initdb.d/init.sql
-ALTER USER root WITH PASSWORD '${POSTGRES_PASSWORD_ROOT}';
 CREATE USER IF NOT EXISTS traqing WITH PASSWORD '${POSTGRES_PASSWORD_TRAQING}';
 
 CREATE DATABASE IF NOT EXISTS traqing;
