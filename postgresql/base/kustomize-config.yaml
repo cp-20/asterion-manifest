@@ -1,0 +1,8 @@
+# For Secret name with hash suffix substitution
+nameReference:
+  - kind: Secret
+    fieldSpecs:
+      - kind: Deployment
+        path: spec/templates/spec/containers[0]/env[0]/valueFrom/secretKeyRef/name
+      - kind: Deployment
+        path: spec/templates/spec/containers[0]/env[1]/valueFrom/secretKeyRef/name
