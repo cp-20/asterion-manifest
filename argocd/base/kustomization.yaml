@@ -13,5 +13,11 @@ configMapGenerator:
     files:
       - config/helm
 
+patches:
+  - path: patches/argocd-cm.yaml
+  - path: patches/argocd-cmd-params-cm.yaml
+  - path: patches/argocd-repo-server-helm.yaml
+  - path: patches/argocd-repo-server-ksops.yaml
+
 generators:
   - ksops.yaml
