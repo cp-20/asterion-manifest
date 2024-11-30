@@ -35,8 +35,8 @@ spec:
                   - /bin/sh
                   - -c
                   - |
-                    psql -U postgres -h localhost -c "DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_database WHERE datname = 'traqing') THEN CREATE DATABASE traqing; END IF; END $$;"
-                    psql -U postgres -h localhost -c "DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'traqing') THEN CREATE USER traqing WITH ENCRYPTED PASSWORD '${POSTGRES_PASSWORD_TRAQING}'; END IF; END $$;"
+                    psql -U postgres -h localhost -c "DO \$\$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_database WHERE datname = 'traqing') THEN CREATE DATABASE traqing; END IF; END \$\$;"
+                    psql -U postgres -h localhost -c "DO \$\$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'traqing') THEN CREATE USER traqing WITH ENCRYPTED PASSWORD '${POSTGRES_PASSWORD_TRAQING}'; END IF; END \$\$;"
                     psql -U postgres -h localhost -c "GRANT ALL PRIVILEGES ON DATABASE traqing TO traqing;"
           resources:
             limits:
