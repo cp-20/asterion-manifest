@@ -2,5 +2,5 @@
 nameReference:
   - kind: Secret
     fieldSpecs:
-      - kind: Deployment
+      - kind: WorkflowTemplate
         path: spec/template/spec/containers/env/valueFrom/secretKeyRef/name
