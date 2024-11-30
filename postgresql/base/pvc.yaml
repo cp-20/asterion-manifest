@@ -9,4 +9,4 @@ spec:
   resources:
     requests:
       storage: 32Gi
-  storageClassName: 'standard'
+  storageClassName: 'local-path'
