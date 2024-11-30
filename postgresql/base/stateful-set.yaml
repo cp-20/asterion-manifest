@@ -36,9 +36,10 @@ spec:
                   - -c
                   - |
                     sleep 10
-                    psql -U postgres -h localhost -c "CREATE DATABASE IF NOT EXISTS traqing;"
-                    psql -U postgres -h localhost -c "CREATE USER IF NOT EXISTS traqing WITH ENCRYPTED PASSWORD '${POSTGRES_PASSWORD_TRAQING}';"
-                    psql -U postgres -h localhost -c "GRANT ALL PRIVILEGES ON DATABASE traqing TO traqing;"
+                    psql -U postgres -h localhost -c "
+                      CREATE DATABASE IF NOT EXISTS traqing;
+                      CREATE USER IF NOT EXISTS traqing WITH ENCRYPTED PASSWORD '${POSTGRES_PASSWORD_TRAQING}';
+                      GRANT ALL PRIVILEGES ON DATABASE traqing TO traqing;"
           resources:
             limits:
               memory: '1024Mi'
