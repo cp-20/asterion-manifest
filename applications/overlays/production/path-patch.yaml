@@ -7,4 +7,4 @@ spec:
   template:
     spec:
       destination:
-        namespace: '{{.path.basename}}/production'
+        namespace: '{{.path.basename}}/overlays/production'

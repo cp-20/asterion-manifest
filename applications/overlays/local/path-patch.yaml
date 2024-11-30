@@ -7,4 +7,4 @@ spec:
   template:
     spec:
       destination:
-        namespace: '{{.path.basename}}/local'
+        namespace: '{{.path.basename}}/overlays/local'
