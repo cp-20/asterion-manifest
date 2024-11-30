@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgresql
+  name: postgresql-headless
   namespace: postgresql
 spec:
+  clusterIP: None
   selector:
     app: postgresql
   ports:
-    - protocol: TCP
+    - name: postgresql
       port: 5432
       targetPort: 5432
-  type: ClusterIP
