@@ -10,3 +10,6 @@ tasks:
   edit-secret:
     cmds:
       - sops --config .sops.yaml --in-place {{.CLI_ARGS}}
+  argocd-secret:
+    cmds:
+      - kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode && echo
