@@ -1,9 +1,10 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: postgresql
   namespace: postgresql
 spec:
+  serviceName: postgresql-headless
   replicas: 1
   selector:
     matchLabels:
