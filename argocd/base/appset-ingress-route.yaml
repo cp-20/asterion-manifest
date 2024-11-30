@@ -6,8 +6,6 @@ metadata:
 spec:
   entryPoints:
     - websecure
-  tls:
-    secretName: appset-tls
   routes:
     - kind: Rule
       match: Host(`PLACEHOLDER_DOMAIN`)
