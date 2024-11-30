@@ -35,6 +35,7 @@ spec:
                   - /bin/sh
                   - -c
                   - |
+                    sleep 10
                     psql -U postgres -h localhost -c "
                       DO \$\$
                       BEGIN
