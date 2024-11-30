@@ -6,5 +6,5 @@ metadata:
 spec:
   template:
     spec:
-      destination:
-        namespace: '{{.path.basename}}/overlays/local'
+      source:
+        path: '{{.path.basename}}/overlays/local'
