@@ -2,4 +2,6 @@ resources:
   - deployment.yaml
   - service.yaml
   - pvc.yaml
-  - configmap.yaml
+
+generators:
+  - ksops.yaml
