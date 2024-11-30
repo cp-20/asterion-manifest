@@ -20,12 +20,12 @@ spec:
             - name: POSTGRES_PASSWORD_ROOT
               valueFrom:
                 secretKeyRef:
-                  name: password
+                  name: postgresql-password
                   key: root
             - name: POSTGRES_PASSWORD_TRAQING
               valueFrom:
                 secretKeyRef:
-                  name: password
+                  name: postgresql-password
                   key: traqing
           resources:
             limits:
