@@ -35,9 +35,9 @@ spec:
                   - /bin/sh
                   - -c
                   - |
-                    psql -U postgres -c "CREATE DATABASE IF NOT EXISTS traqing;"
-                    psql -U postgres -c "CREATE USER traqing WITH ENCRYPTED PASSWORD '${POSTGRES_PASSWORD_TRAQING}';"
-                    psql -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE traqing TO traqing;"
+                    psql -U postgres -h localhost -c "CREATE DATABASE IF NOT EXISTS traqing;"
+                    psql -U postgres -h localhost -c "CREATE USER traqing WITH ENCRYPTED PASSWORD '${POSTGRES_PASSWORD_TRAQING}';"
+                    psql -U postgres -h localhost -c "GRANT ALL PRIVILEGES ON DATABASE traqing TO traqing;"
           resources:
             limits:
               memory: '1024Mi'
