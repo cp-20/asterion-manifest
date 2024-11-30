@@ -6,10 +6,5 @@ resources:
   - service.yaml
   - pvc.yaml
 
-configMapGenerator:
-  - name: init-script-config
-    files:
-      - config/init.sh
-
 generators:
   - ksops.yaml

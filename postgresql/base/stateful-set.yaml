@@ -28,6 +28,16 @@ spec:
                 secretKeyRef:
                   name: postgresql-password
                   key: traqing
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - /bin/sh
+                  - -c
+                  - |
+                    psql -U postgres -c "CREATE DATABASE IF NOT EXISTS traqing;"
+                    psql -U postgres -c "CREATE USER traqing WITH ENCRYPTED PASSWORD '${POSTGRES_PASSWORD_TRAQING}';"
+                    psql -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE traqing TO traqing;"
           resources:
             limits:
               memory: '1024Mi'
