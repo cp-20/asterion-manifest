@@ -2,15 +2,23 @@
 
 ## ローカルテスト用のセットアップ
 
-- `asterion.cp20.local` を `127.0.0.1` に向ける
+- 次のアドレスを `127.0.0.1` に向ける
+  - `asterion.cp20.local`
+  - `cd.cp20.local`
+  - `traq-ing.cp20.local`
 - `k3d cluster create --config k3d-config.yaml`
+  - 壊すときは `k3d cluster delete asterion`
 - `kubectl config use-context k3d-asterion`
+
 
 ## Bootstrap
 
 ArgoCDのセットアップ
 
 ```
+# cert-manager を用意
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.16.2/cert-manager.yaml
+
 # argocd ネームスペースを作成
 kubectl create ns argocd
 
@@ -24,13 +32,10 @@ kustomize build ./argocd/overlays/production --enable-alpha-plugins --enable-exe
 age-keygen -o ~/.config/sops/age/keys.txt
 # ここで得られた public key を .sops.yaml に記載する
 # クラスタに登録する
-kubectl -n argocd create secret generic age-key --from-file=~/.config/sops/age/keys.txt
-
-# ArgoCD の port forward (別の Terminal でやる)
-kubectl port-forward svc/argocd-server -n argocd 8124:443
+kubectl -n argocd create secret generic age-key --from-file=$HOME/.config/sops/age/keys.txt
 
 # applications を登録する
-argocd login localhost:8124 --username admin --password $(kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode)
+argocd login cd.cp20.local --username admin --password $(kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode)
 # local
 argocd app create applications \
   --repo https://github.com/cp-20/asterion-manifest \
@@ -52,8 +57,6 @@ argocd app create applications \
   --self-heal \
   --revision main
 ```
-
-ArgoCDにアクセス (`localhost:8124`)
 
 - Port Forward: `kubectl port-forward svc/argocd-server -n argocd 8124:443`
 - `admin` ユーザーのパスワードを取得 `kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode && echo`
