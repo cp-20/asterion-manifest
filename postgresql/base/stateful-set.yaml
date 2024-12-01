@@ -39,6 +39,7 @@ spec:
                     psql -U postgres -tc "SELECT 1 FROM pg_database WHERE datname = 'traqing'" | grep -q 1 || psql -U postgres -c "CREATE DATABASE traqing;"
                     psql -U postgres -tc "SELECT 1 FROM pg_roles WHERE rolname = 'traqing'" | grep -q 1 || psql -U postgres -c "CREATE USER traqing WITH PASSWORD '${POSTGRES_PASSWORD_TRAQING}';"
                     psql -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE traqing TO traqing;"
+                    psql -U postgres -c "ALTER DATABASE traqing OWNER TO traqing;"
           resources:
             limits:
               memory: '1024Mi'
