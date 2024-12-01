@@ -1,7 +1,4 @@
 resources:
-  # renovate:github-url
-  - https://github.com/cert-manager/cert-manager/releases/download/v1.16.1/cert-manager.yaml
-  - certificate.yaml
   - ingress-route.yaml
   - server-deployment.yaml
   - client-deployment.yaml
