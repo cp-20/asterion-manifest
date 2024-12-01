@@ -9,6 +9,3 @@ resources:
 
 generators:
   - ksops.yaml
-
-configurations:
-  - kustomize-config.yaml
