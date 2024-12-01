@@ -2,3 +2,6 @@ resources:
   - ingress-route.yaml
   - server-deployment.yaml
   - client-deployment.yaml
+
+generators:
+  - ksops.yaml
