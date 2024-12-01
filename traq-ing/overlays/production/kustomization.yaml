@@ -1,4 +1,2 @@
 resources:
   - ../../base
-patches:
-  - path: domain-patch.yaml

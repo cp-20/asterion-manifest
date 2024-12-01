@@ -1,18 +1,16 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: traq-ing
+  name: traq-ing-ingress
 
 spec:
-  entryPoints:
-    - websecure
   routes:
     - kind: Rule
-      match: Host(`PLACEHOLDER_DOMAIN`)
+      match: Host(`traq-ing.cp20.local`)
       services:
         - kind: Service
-          namespace: argocd
-          name: argocd-server
+          namespace: traq-ing
+          name: traq-ing-client
           port: 80
           scheme: http
           strategy: RoundRobin
