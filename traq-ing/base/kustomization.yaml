@@ -6,6 +6,7 @@ resources:
   - server-deployment.yaml
   - server-service.yaml
   - client-deployment.yaml
+  - service-client.yaml
 
 generators:
   - ksops.yaml
