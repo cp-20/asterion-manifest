@@ -1,4 +1,4 @@
 resources:
   - ../../base
-patches:
-  - path: domain-patch.yaml
+  # local 環境では普通に Ingress Route でルーティングする
+  - ingress-route.yaml

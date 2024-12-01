@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   # renovate:github-url
   - https://raw.githubusercontent.com/argoproj/argo-cd/v2.12.6/manifests/install.yaml
-  - ingress-route.yaml
 
 configMapGenerator:
   - name: helm-replace

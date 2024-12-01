@@ -1,4 +1,3 @@
 resources:
   - ../../base
-patches:
-  - path: domain-patch.yaml
+  # TODO: production 環境では Cloudflare Tunnels でルーティングする

@@ -4,11 +4,9 @@ metadata:
   name: argocd-server
 
 spec:
-  entryPoints:
-    - websecure
   routes:
     - kind: Rule
-      match: Host(`PLACEHOLDER_DOMAIN`)
+      match: Host(`cd.cp20.local`)
       services:
         - kind: Service
           namespace: argocd

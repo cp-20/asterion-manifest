@@ -10,6 +10,13 @@ kubeAPI:
   hostIP: '127.0.0.1'
   hostPort: '6445'
 network: asterion-net
+ports:
+  - port: 80:80
+    nodeFilters:
+      - loadbalancer
+  - port: 443:443
+    nodeFilters:
+      - loadbalancer
 options:
   k3d:
     wait: true
