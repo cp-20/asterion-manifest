@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traq-ing-server
+  labels:
+    app: traq-ing-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traq-ing-server
+  template:
+    metadata:
+      labels:
+        app: traq-ing-server
+    spec:
+      containers:
+        - name: traq-ing-server
+          image: traq-ing-server:latest
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              memory: '512Mi'
+              cpu: '500m'
+            requests:
+              memory: '256Mi'
+              cpu: '250m'
+          env:
+            - name: TRAQ_AUTH_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: traq-secrets
+                  key: TRAQ_AUTH_CLIENT_ID
+            - name: TRAQ_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: traq-secrets
+                  key: TRAQ_TOKEN
+            - name: DATABASE_URL
+              value: postgressql://user:password@host.docker.internal:5432/traq_ing
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: caddyfile-config
+data:
+  Caddyfile: |
+    # Caddyfileの内容をここに記載
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: traq-secrets
+type: Opaque
+data:
+  TRAQ_AUTH_CLIENT_ID: BASE64_ENCODED_VALUE
+  TRAQ_TOKEN: BASE64_ENCODED_VALUE

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traq-ing-client
+  labels:
+    app: traq-ing-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traq-ing-client
+  template:
+    metadata:
+      labels:
+        app: traq-ing-client
+    spec:
+      containers:
+        - name: traq-ing-client
+          image: traq-ing-client:latest
+          resources:
+            limits:
+              memory: '512Mi'
+              cpu: '500m'
+            requests:
+              memory: '256Mi'
+              cpu: '250m'
+          ports:
+            - containerPort: 80
