@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: traq-ing-update-all-messages-job
+  namespace: traq-ing
+spec:
+  template:
+    spec:
+      containers:
+        - name: traq-ing-update-all-messages
+          image: ghcr.io/cp-20/traq-ing-server:latest
+          command: ['bun', 'run', 'run:update-all-messages']
+          restartPolicy: Never
+          env:
+            - name: TRAQ_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: traq-ing-key
+                  key: traq_token
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: traq-ing-key
+                  key: database_password
+            - name: DATABASE_URL
+              value: postgressql://traqing:$(DATABASE_PASSWORD)@postgresql-headless.postgresql.svc.cluster.local:5432/traqing
+  backoffLimit: 0
