@@ -4,9 +4,13 @@ metadata:
   name: argocd-server
 
 spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: argocd-server-tls
   routes:
     - kind: Rule
-      match: Host(`cd.cp20.local`)
+      match: Host(`cd.local.cp20.dev`)
       services:
         - kind: Service
           namespace: argocd
