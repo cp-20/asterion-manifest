@@ -13,6 +13,17 @@ spec:
       template:
         spec:
           restartPolicy: Never
+          initContainers:
+            - name: check-update-all-messages-job
+              image: bitnami/kubectl:latest
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  if kubectl get jobs -n traq-ing | grep -q 'traq-ing-update-all-messages-job.*1/1'; then
+                    echo "update-all-messages-job is running, exiting."
+                    exit 1
+                  fi
           containers:
             - name: traq-ing-update-messages
               image: ghcr.io/cp-20/traq-ing-server:latest
