@@ -13,7 +13,7 @@ spec:
       match: Host(`traqing.local.cp20.dev`)
       services:
         - kind: Service
-          namespace: traqing
+          namespace: traq-ing
           name: traq-ing-client
           port: 80
           scheme: http
