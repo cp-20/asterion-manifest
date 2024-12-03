@@ -10,6 +10,8 @@ spec:
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
+      parallelism: 1
+      backoffLimit: 0
       template:
         spec:
           restartPolicy: Never
@@ -41,5 +43,3 @@ spec:
                       key: database_password
                 - name: DATABASE_URL
                   value: postgressql://traqing:$(DATABASE_PASSWORD)@postgresql-headless.postgresql.svc.cluster.local:5432/traqing
-      parallelism: 1
-      backoffLimit: 0
