@@ -8,6 +8,7 @@ resources:
   - service-client.yaml
   - update-statistics-job.yaml
   - update-messages-job.yaml
+  - update-all-messages-job.yaml
 
 generators:
   - ksops.yaml
