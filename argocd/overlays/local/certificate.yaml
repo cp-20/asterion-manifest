@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: argocd-server
+  name: argocd-server-tls
 
 spec:
   issuerRef:
