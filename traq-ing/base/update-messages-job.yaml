@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: traq-ing-update-messages-job
+  namespace: traq-ing
+spec:
+  # 毎時0分に実行
+  schedule: '0 * * * *'
+  timeZone: Asia/Tokyo
+  jobTemplate:
+    spec:
+      template:
+        containers:
+          - name: traq-ing-update-messages
+            image: ghcr.io/cp-20/traq-ing-server:latest
+            command: ['bun', 'run', 'update-messages']
+        restartPolicy: Never
+      parallelism: 1

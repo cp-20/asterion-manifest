@@ -6,6 +6,8 @@ resources:
   - server-service.yaml
   - client-deployment.yaml
   - service-client.yaml
+  - update-statistics-job.yaml
+  - update-messages-job.yaml
 
 generators:
   - ksops.yaml

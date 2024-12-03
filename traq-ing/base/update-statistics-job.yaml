@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: traq-ing-update-statistics-job
+  namespace: traq-ing
+spec:
+  # 毎日朝4時に実行
+  schedule: '0 4 * * *'
+  timeZone: Asia/Tokyo
+  jobTemplate:
+    spec:
+      template:
+        containers:
+          - name: traq-ing-update-statistics
+            image: ghcr.io/cp-20/traq-ing-server:latest
+            command: ['bun', 'run', 'update-statistics']
+        restartPolicy: Never
+      parallelism: 1
