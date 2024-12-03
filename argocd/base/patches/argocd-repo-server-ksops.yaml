@@ -39,9 +39,11 @@ spec:
             - mountPath: /usr/local/bin/ksops
               name: custom-tools
               subPath: ksops
-            - mountPath: /age-key/key.txt
+            - mountPath: /.config/sops/age/keys.txt
               name: age-key
-              subPath: key.txt
+              subPath: keys.txt
           env:
+            - name: XDG_CONFIG_HOME
+              value: /.config
             - name: SOPS_AGE_KEY_FILE
-              value: /age-key/key.txt
+              value: /.config/sops/age/keys.txt
