@@ -10,9 +10,10 @@ spec:
   jobTemplate:
     spec:
       template:
-        containers:
-          - name: traq-ing-update-messages
-            image: ghcr.io/cp-20/traq-ing-server:latest
-            command: ['bun', 'run', 'update-messages']
-      restartPolicy: Never
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: traq-ing-update-messages
+              image: ghcr.io/cp-20/traq-ing-server:latest
+              command: ['bun', 'run', 'update-messages']
       parallelism: 1
