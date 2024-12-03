@@ -2,3 +2,5 @@ resources:
   - ../../base
   # local 環境では普通に Ingress Route でルーティングする
   - ingress-route.yaml
+  - ingress-route-tls.yaml
+  - certificate.yaml
