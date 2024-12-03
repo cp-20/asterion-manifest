@@ -15,5 +15,5 @@ spec:
           containers:
             - name: traq-ing-update-messages
               image: ghcr.io/cp-20/traq-ing-server:latest
-              command: ['bun', 'run', 'update-messages']
+              command: ['bun', 'run', 'run:update-messages']
       parallelism: 1
