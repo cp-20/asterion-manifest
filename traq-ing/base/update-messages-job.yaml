@@ -14,5 +14,5 @@ spec:
           - name: traq-ing-update-messages
             image: ghcr.io/cp-20/traq-ing-server:latest
             command: ['bun', 'run', 'update-messages']
-        restartPolicy: Never
+      restartPolicy: Never
       parallelism: 1
