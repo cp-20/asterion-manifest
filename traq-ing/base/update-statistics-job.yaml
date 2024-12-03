@@ -16,4 +16,17 @@ spec:
             - name: traq-ing-update-statistics
               image: ghcr.io/cp-20/traq-ing-server:latest
               command: ['bun', 'run', 'run:update-statistics']
+              env:
+                - name: TRAQ_TOKEN
+                  valueFrom:
+                    secretKeyRef:
+                      name: traq-ing-key
+                      key: traq_token
+                - name: DATABASE_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: traq-ing-key
+                      key: database_password
+                - name: DATABASE_URL
+                  value: postgressql://traqing:$(DATABASE_PASSWORD)@postgresql-headless.postgresql.svc.cluster.local:5432/traqing
       parallelism: 1
