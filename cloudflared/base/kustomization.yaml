@@ -1,0 +1,5 @@
+resources:
+  - cloudflared.yaml
+
+generators:
+  - ksops.yaml
