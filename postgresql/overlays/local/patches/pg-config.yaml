@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgresql
+  namespace: postgresql
+spec:
+  serviceName: postgresql-headless
+  selector:
+    matchLabels:
+      app: postgresql
+  template:
+    spec:
+      containers:
+        - name: postgresql
+          volumeMounts:
+            - mountPath: /etc/postgresql/pg_hba.conf
+              name: pg-hba-conf
+      volumes:
+        - name: pg-hba-conf
+          configMap:
+            name: pg-hba-conf
