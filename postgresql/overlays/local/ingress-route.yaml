@@ -12,7 +12,7 @@ spec:
       match: Host(`postgresql.local.cp20.dev`)
       services:
         - kind: Service
-          name: postgresql
+          name: postgresql-headless
           port: 5432
           scheme: tcp
           strategy: RoundRobin
