@@ -58,5 +58,19 @@ argocd app create applications \
   --revision main
 ```
 
-- Port Forward: `kubectl port-forward svc/argocd-server -n argocd 8124:443`
-- `admin` ユーザーのパスワードを取得 `kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode && echo`
+cloudflared
+
+```
+# https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/get-started/create-local-tunnel/
+
+# install cloudflared (Ubuntu)
+sudo mkdir -p --mode=0755 /usr/share/keyrings
+curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
+echo "deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflared.list
+sudo apt-get update && sudo apt-get install cloudflared
+
+# Authenticate cloudflared
+cloudflared tunnel login
+
+# Create a new Tunnel
+
