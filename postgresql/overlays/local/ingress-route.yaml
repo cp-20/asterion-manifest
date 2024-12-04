@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - tcp
   routes:
-    - match: HostSNI(`postgresql.local.cp20.dev`)
+    - match: HostSNI(`*`)
       services:
         - name: postgresql-headless
           namespace: postgresql
