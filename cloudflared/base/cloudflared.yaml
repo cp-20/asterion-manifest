@@ -1,51 +1,55 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app: cloudflared
-  name: cloudflared-deployment
+  name: cloudflared
   namespace: cloudflared
+
 spec:
-  replicas: 2
   selector:
     matchLabels:
-      pod: cloudflared
+      app: cloudflared
+  replicas: 2
   template:
     metadata:
       labels:
-        pod: cloudflared
+        app: cloudflared
     spec:
       containers:
-        - command:
-            - cloudflared
-            - tunnel
-            - --no-autoupdate
-            # In a k8s environment, the metrics server needs to listen outside the pod it runs on.
-            # The address 0.0.0.0:2000 allows any pod in the namespace.
-            - --metrics
-            - 0.0.0.0:2000
-            - run
+        - name: cloudflared
           image: cloudflare/cloudflared:latest
-          name: cloudflared
+          args:
+            - tunnel
+            - --config
+            - /etc/cloudflared/config/config.yaml
+            - run
           resources:
             limits:
+              memory: '512Mi'
               cpu: '500m'
-              memory: '128Mi'
             requests:
+              memory: '256Mi'
               cpu: '250m'
-              memory: '64Mi'
           livenessProbe:
             httpGet:
-              # Cloudflared has a /ready endpoint which returns 200 if and only if
-              # it has an active connection to the edge.
               path: /ready
               port: 2000
             failureThreshold: 1
             initialDelaySeconds: 10
             periodSeconds: 10
-          env:
-            - name: TUNNEL_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: cloudflared
-                  key: CLOUDFLARE_TUNNEL_TOKEN
+          volumeMounts:
+            - name: config
+              mountPath: /etc/cloudflared/config
+              readOnly: true
+            - name: creds
+              mountPath: /etc/cloudflared/creds
+              readOnly: true
+      volumes:
+        - name: creds
+          secret:
+            secretName: credentials
+        - name: config
+          configMap:
+            name: cloudflared
+            items:
+              - key: config.yaml
+                path: config.yaml

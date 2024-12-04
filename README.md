@@ -63,14 +63,22 @@ cloudflared
 ```
 # https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/get-started/create-local-tunnel/
 
-# install cloudflared (Ubuntu)
+# cloudflared をインストール (Ubuntu)
 sudo mkdir -p --mode=0755 /usr/share/keyrings
 curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
 echo "deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflared.list
 sudo apt-get update && sudo apt-get install cloudflared
 
-# Authenticate cloudflared
+# cloudflared にログイン
 cloudflared tunnel login
 
-# Create a new Tunnel
+# 新しい Tunnel を作成
+cloudflared tunnel create asterion
 
+# Tunnel を route に紐づけ
+cloudflared tunnel route dns asterion traqing.cp20.dev
+
+# その Tunnel 用の認証情報をクラスタに登録 (<TunnelID> は適宜置き換え)
+kubectl -n cloudflared create secret generic credentials \
+  --from-file=credentials.json=$HOME/.cloudflared/<TunnelID>.json
+```
