@@ -1,7 +1,7 @@
 resources:
   - ../../base
   - ingress-route.yaml
-  - pg-hba-conf.yaml
+#   - pg-hba-conf.yaml
 
-patches:
-  - path: patches/pg-config.yaml
+# patches:
+#   - path: patches/pg-config.yaml
