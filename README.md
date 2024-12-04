@@ -16,7 +16,10 @@
   - `apt install age`
 - `go`
   - `apt install golang-go` (Go >= 1.19)
-  
+- `argocd`
+  - `curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64`
+  - `sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd`
+  - `rm argocd-linux-amd64`
 
 ### local
 
@@ -57,8 +60,8 @@ age-keygen -o ~/.config/sops/age/keys.txt
 kubectl -n argocd create secret generic age-key --from-file=$HOME/.config/sops/age/keys.txt
 
 # applications を登録する
-argocd login cd.cp20.local --username admin --password $(kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode)
 # local
+argocd login cd.cp20.local --username admin --password $(kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode)
 argocd app create applications \
   --repo https://github.com/cp-20/asterion-manifest \
   --path applications/overlays/local \
@@ -69,6 +72,9 @@ argocd app create applications \
   --self-heal \
   --revision main
 # production
+# 一旦ポートフォワード (別ターミナルで)
+kubectl port-forward svc/argocd-server -n argocd 8124:443
+argocd login localhost:8124 --username admin --password $(kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode)
 argocd app create applications \
   --repo https://github.com/cp-20/asterion-manifest \
   --path applications/overlays/production \
