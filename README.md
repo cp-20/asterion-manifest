@@ -1,15 +1,37 @@
 # k8s manifest
 
-## ローカルテスト用のセットアップ
+## セットアップ
 
-- 次のアドレスを `127.0.0.1` に向ける
-  - `asterion.cp20.local`
-  - `cd.cp20.local`
-  - `traq-ing.cp20.local`
+### 共通 (ツールのセットアップ)
+
+- `kustomize`
+  - `curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash`
+- `ksops`
+  - `curl -s https://raw.githubusercontent.com/viaduct-ai/kustomize-sops/master/scripts/install-ksops-archive.sh | bash`
+- `sops`
+  - `curl -LO https://github.com/getsops/sops/releases/download/v3.9.2/sops-v3.9.2.linux.amd64`
+  - `mv sops-v3.9.2.linux.amd64 /usr/local/bin/sops`
+  - `chmod +x /usr/local/bin/sops`
+- `age`
+  - `apt install age`
+- `go`
+  - `apt install golang-go` (Go >= 1.19)
+  
+
+### local
+
+- `asterion.cp20.local` を `127.0.0.1` に向ける
 - `k3d cluster create --config k3d-config.yaml`
   - 壊すときは `k3d cluster delete asterion`
 - `kubectl config use-context k3d-asterion`
 
+### production
+
+https://docs.k3s.io/quick-start に従って k3s をインストールする
+
+```shell
+curl -sfL https://get.k3s.io | sh -
+```
 
 ## Bootstrap
 
