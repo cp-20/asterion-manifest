@@ -16,6 +16,6 @@ spec:
           namespace: postgresql
           name: postgresql-headless
           port: 55432
-          scheme: http
+          scheme: tcp
           strategy: RoundRobin
           weight: 1
