@@ -42,8 +42,8 @@ spec:
                     psql -U postgres -c "ALTER DATABASE traqing OWNER TO traqing;"
           resources:
             limits:
-              memory: '1024Mi'
-              cpu: '1000m'
+              memory: '2048Mi'
+              cpu: '4000m'
             requests:
               memory: '512Mi'
               cpu: '500m'
