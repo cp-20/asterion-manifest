@@ -11,7 +11,7 @@ spec:
         - kind: Service
           namespace: postgresql
           name: postgresql
-          port: 55432
+          port: 5432
           scheme: tcp
           strategy: RoundRobin
           weight: 1
