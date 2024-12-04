@@ -5,10 +5,9 @@ metadata:
   namespace: postgresql
 
 spec:
-  entryPoints:
-    - tcp
   routes:
     - match: Host(`postgresql.local.cp20.dev`)
       services:
         - name: postgresql-headless
+          namespace: postgresql
           port: 5432
