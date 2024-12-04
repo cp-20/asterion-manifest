@@ -2,14 +2,16 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: postgresql-ingress-route
+  namespace: postgresql
 
 spec:
+  entryPoints:
+    - web
   routes:
     - kind: Rule
       match: Host(`postgresql.local.cp20.dev`)
       services:
         - kind: Service
-          namespace: postgresql
           name: postgresql
           port: 5432
           scheme: tcp
