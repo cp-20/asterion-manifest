@@ -4,7 +4,7 @@ metadata:
   labels:
     app: cloudflared
   name: cloudflared-deployment
-  namespace: default
+  namespace: cloudflared
 spec:
   replicas: 2
   selector:
@@ -12,7 +12,6 @@ spec:
       pod: cloudflared
   template:
     metadata:
-      creationTimestamp: null
       labels:
         pod: cloudflared
     spec:
