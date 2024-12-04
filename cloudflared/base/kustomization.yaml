@@ -1,3 +1,2 @@
 resources:
   - cloudflared.yaml
-  - cloudflared-config.yaml
