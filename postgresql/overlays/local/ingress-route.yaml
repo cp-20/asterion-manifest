@@ -9,6 +9,5 @@ spec:
     - kind: Rule
       match: Host(`postgresql.local.cp20.dev`)
       services:
-        - kind: Service
-          name: postgresql-headless
+        - name: postgresql-headless
           port: 5432
