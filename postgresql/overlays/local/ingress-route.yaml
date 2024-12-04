@@ -6,8 +6,7 @@ metadata:
 
 spec:
   routes:
-    - kind: Rule
-      match: Host(`postgresql.local.cp20.dev`)
+    - match: Host(`postgresql.local.cp20.dev`)
       services:
         - name: postgresql-headless
           port: 5432
