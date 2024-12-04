@@ -5,8 +5,6 @@ metadata:
   namespace: postgresql
 
 spec:
-  entryPoints:
-    - web
   routes:
     - match: HostSNI(`postgresql.local.cp20.dev`)
       services:
