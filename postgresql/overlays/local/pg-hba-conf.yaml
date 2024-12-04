@@ -10,4 +10,4 @@ data:
   pg_hba.conf: |
     # TYPE  DATABASE        USER            ADDRESS                 METHOD
     local   all             all                                     trust
-    host    traqing         traqing         0.0.0.0/0               trust
+    host    traqing         traqing         0.0.0.0/0               scram-sha-256
