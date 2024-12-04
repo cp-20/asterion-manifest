@@ -4,10 +4,6 @@ metadata:
   name: postgresql
 
 spec:
-  entryPoints:
-    - websecure
-  tls:
-    secretName: postgresql-tls
   routes:
     - kind: Rule
       match: Host(`postgresql.local.cp20.dev`)
