@@ -12,5 +12,3 @@ spec:
         - kind: Service
           name: postgresql-headless
           port: 5432
-          strategy: RoundRobin
-          weight: 1
