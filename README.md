@@ -105,6 +105,7 @@ cloudflared tunnel create asterion
 
 # Tunnel を route に紐づけ
 cloudflared tunnel route dns asterion traqing.cp20.dev
+cloudflared tunnel route dns asterion cd.cp20.dev
 
 # その Tunnel 用の認証情報をクラスタに登録 (<TunnelID> は適宜置き換え)
 kubectl -n cloudflared create secret generic credentials \
