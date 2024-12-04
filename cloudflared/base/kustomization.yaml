@@ -1,5 +1,3 @@
 resources:
   - cloudflared.yaml
-
-generators:
-  - ksops.yaml
+  - cloudflared-config.yaml
