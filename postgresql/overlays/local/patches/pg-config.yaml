@@ -13,7 +13,7 @@ spec:
       containers:
         - name: postgresql
           volumeMounts:
-            - mountPath: /etc/postgresql/pg_hba.conf
+            - mountPath: /etc/postgresql
               name: pg-hba-conf
       volumes:
         - name: pg-hba-conf
