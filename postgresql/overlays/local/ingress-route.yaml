@@ -1,0 +1,21 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: postgresql
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: postgresql-tls
+  routes:
+    - kind: Rule
+      match: Host(`postgresql.local.cp20.dev`)
+      services:
+        - kind: Service
+          namespace: postgresql
+          name: postgresql-headless
+          port: 5432
+          scheme: http
+          strategy: RoundRobin
+          weight: 1

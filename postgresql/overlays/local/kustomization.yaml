@@ -1,2 +1,4 @@
 resources:
   - ../../base
+  - ingress-route.yaml
+  - certificate.yaml
