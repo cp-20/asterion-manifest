@@ -2,3 +2,6 @@ resources:
   - ../../base
   - ingress-route.yaml
   - certificate.yaml
+
+patches:
+  - path: patches/server-deployment-auth.yaml

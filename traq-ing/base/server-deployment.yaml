@@ -32,7 +32,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: traq-ing-key
-                  key: traq_auth_client_id
+                  key: traq_auth_client_id_prod
             - name: TRAQ_TOKEN
               valueFrom:
                 secretKeyRef:
