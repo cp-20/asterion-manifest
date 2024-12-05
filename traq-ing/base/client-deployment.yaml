@@ -27,3 +27,6 @@ spec:
               cpu: '250m'
           ports:
             - containerPort: 80
+          env:
+            - name: SERVER_ORIGIN
+              value: traq-ing-server.traq-ing.svc.cluster.local:8080
