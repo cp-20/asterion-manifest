@@ -10,7 +10,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: traq-ing-update-all-messages
-          image: ghcr.io/cp-20/traq-ing-server:latest
+          image: ghcr.io/cp-20/traq-ing-server:v1.0.0-rc11
           command: ['bun', 'run', 'run:update-all-messages']
           env:
             - name: TRAQ_TOKEN
