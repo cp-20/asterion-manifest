@@ -1,6 +1,9 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
+  "matchUpdateTypes": ["patch"],
+  "automerge": true,
+  "platformAutomerge": true,
   "regexManagers": [
     // GitHub上に存在するマニフェストファイルをkustomizationで利用する部分のバージョン管理
     {
