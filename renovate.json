@@ -1,28 +1,35 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
+  "extends": [
+    "config:recommended"
+  ],
   "packageRules": [
     {
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
       "automerge": true,
       "platformAutomerge": true
     }
   ],
   "prHourlyLimit": 0,
-  "regexManagers": [
-    // GitHub上に存在するマニフェストファイルをkustomizationで利用する部分のバージョン管理
+  "customManagers": [
     {
-      // kustomization.yml or kustomization.yaml
-      "fileMatch": ["kustomization\\.ya?ml$"],
-      // 例: https://github.com/argoproj/argo-rollouts/releases/download/v1.5.0/install.yaml
+      "customType": "regex",
+      "fileMatch": [
+        "kustomization\\.ya?ml$"
+      ],
       "matchStrings": [
         "https://github.com/(?<depName>.*/.*?)/releases/download/(?<currentValue>.*?)/"
       ],
       "datasourceTemplate": "github-releases"
     },
     {
-      "fileMatch": ["kustomization\\.ya?ml$"],
-      // 例: https://raw.githubusercontent.com/argoproj/argo-cd/v2.7.2/manifests/install.yaml
+      "customType": "regex",
+      "fileMatch": [
+        "kustomization\\.ya?ml$"
+      ],
       "matchStrings": [
         "https://raw.githubusercontent.com/(?<depName>[^/]*/[^/]*)/(?<currentValue>.*?)/"
       ],
