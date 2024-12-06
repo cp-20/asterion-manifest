@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
   # renovate:github-url
-  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.12.6/manifests/install.yaml
+  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.13.1/manifests/install.yaml
 
 configMapGenerator:
   - name: helm-replace
