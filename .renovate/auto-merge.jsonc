@@ -1,0 +1,24 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "description": "Auto merge GitHub Actions",
+      "matchManagers": ["github-actions"],
+      "matchDatasources": ["github-tags"],
+      "automerge": true,
+      "matchUpdateTypes": ["minor", "patch", "digest", "pinDigest"]
+    },
+    {
+      "description": "Auto merge up to minor for some images",
+      "automerge": true,
+      "matchUpdateTypes": ["minor", "patch", "digest", "pinDigest"],
+      "matchDatasources": ["docker"],
+      "matchDepPatterns": ["ghcr.io/renovatebot/renovate"]
+    },
+    {
+      "description": "Auto merge up to patch",
+      "automerge": true,
+      "matchUpdateTypes": ["patch", "digest", "pinDigest"]
+    }
+  ]
+}
