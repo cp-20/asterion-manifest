@@ -6,12 +6,12 @@
     ":disableRateLimiting",
     ":dependencyDashboard",
     ":semanticCommits",
-    "github>cp-20/asterion-manifest//.renovate/auto-merge.jsonc",
-    "github>cp-20/asterion-manifest//.renovate/commit-message.jsonc",
-    "github>cp-20/asterion-manifest//.renovate/labels.jsonc",
-    "github>cp-20/asterion-manifest//.renovate/pin-digests.jsonc",
-    "github>cp-20/asterion-manifest//.renovate/regex-manager.jsonc",
-    "github>cp-20/asterion-manifest//.renovate/semantic-commits.jsonc"
+    "github>cp-20/asterion-manifest//.renovate/auto-merge.json",
+    "github>cp-20/asterion-manifest//.renovate/commit-message.json",
+    "github>cp-20/asterion-manifest//.renovate/labels.json",
+    "github>cp-20/asterion-manifest//.renovate/pin-digests.json",
+    "github>cp-20/asterion-manifest//.renovate/regex-manager.json",
+    "github>cp-20/asterion-manifest//.renovate/semantic-commits.json"
   ],
   "platform": "github",
   "platformAutomerge": true,
