@@ -4,6 +4,7 @@
   "matchUpdateTypes": ["patch"],
   "automerge": true,
   "platformAutomerge": true,
+  "prHourlyLimit": 0,
   "regexManagers": [
     // GitHub上に存在するマニフェストファイルをkustomizationで利用する部分のバージョン管理
     {
