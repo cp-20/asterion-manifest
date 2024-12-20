@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: traq-ing-server
-          image: ghcr.io/cp-20/traq-ing-server:v1.0.0-rc11
+          image: ghcr.io/cp-20/traq-ing-server:1.0.3
           ports:
             - containerPort: 8080
           resources:
