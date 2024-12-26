@@ -10,7 +10,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: traq-ing-update-all-messages
-          image: ghcr.io/cp-20/traq-ing-server:1.1.0
+          image: ghcr.io/cp-20/traq-ing-server:1.1.1
           command: ['bun', 'run', 'run:update-all-messages']
           env:
             - name: TRAQ_TOKEN
@@ -18,6 +18,13 @@ spec:
                 secretKeyRef:
                   name: traq-ing-key
                   key: traq_token
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: traq-ing-key
+                  key: secret_key
+            - name: SERVER_URL
+              value: http://traq-ing-server.traq-ing.svc.cluster.local:8080
             - name: DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
