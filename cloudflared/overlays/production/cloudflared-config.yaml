@@ -16,5 +16,5 @@ data:
     - hostname: cd.cp20.dev
       service: http://argocd-server.argocd.svc.cluster.local:443
     - hostname: adminer.cp20.dev
-      service: http://adminer.postgresql.svc.cluster.local:80
+      service: http://adminer.postgresql.svc.cluster.local:8080
     - service: http_status:404
