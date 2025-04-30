@@ -5,6 +5,8 @@ resources:
   - stateful-set.yaml
   - pvc.yaml
   - service.yaml
+  - adminer-deployment.yaml
+  - adminer-service.yaml
 
 generators:
   - ksops.yaml
