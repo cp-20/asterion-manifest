@@ -15,4 +15,6 @@ data:
       service: http://traq-ing-client.traq-ing.svc.cluster.local:80
     - hostname: cd.cp20.dev
       service: http://argocd-server.argocd.svc.cluster.local:443
+    - hostname: adminer.cp20.dev
+      service: http://adminer.postgresql.svc.cluster.local:80
     - service: http_status:404
