@@ -18,10 +18,14 @@
   "automergeType": "branch",
   "onboarding": false,
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
-  "suppressNotifications": ["prIgnoreNotification"],
+  "suppressNotifications": [
+    "prIgnoreNotification"
+  ],
   "branchConcurrentLimit": 0,
   "prConcurrentLimit": 0,
   "kubernetes": {
-    "fileMatch": [".+\\.ya?ml$"]
+    "managerFilePatterns": [
+      "/.+\\.ya?ml$/"
+    ]
   }
 }
