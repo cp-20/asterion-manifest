@@ -19,8 +19,11 @@ for directory in $(echo ./*/ | tr -d './' | tr -d '/'); do
     echo "Skipping ./$directory"
   else
     echo "Building ./$directory"
-    kustomize build ./"$directory" --enable-alpha-plugins --enable-exec --enable-helm |
+    kustomize build ./"$directory/overlays/local" --enable-alpha-plugins --enable-exec --enable-helm |
       yq ".metadata.namespace = (.metadata.namespace // \"$directory\")" \
-        >.built/"$directory".yaml
+        >.built/"$directory-local".yaml
+    kustomize build ./"$directory/overlays/production" --enable-alpha-plugins --enable-exec --enable-helm |
+      yq ".metadata.namespace = (.metadata.namespace // \"$directory\")" \
+        >.built/"$directory-production".yaml
   fi
 done
