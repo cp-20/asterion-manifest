@@ -17,7 +17,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: traq-ing-update-statistics
-              image: ghcr.io/cp-20/traq-ing-server:1.1.12
+              image: ghcr.io/cp-20/traq-ing-server:1.1.13
               command: ['bun', 'run', 'run:update-statistics']
               env:
                 - name: TRAQ_TOKEN
