@@ -17,6 +17,10 @@ spec:
       containers:
         - name: postgresql
           image: postgres:16
+          command:
+            - postgres
+            - -c
+            - config_file=/etc/postgresql/postgresql.conf
           env:
             - name: POSTGRES_PASSWORD
               valueFrom:
@@ -50,9 +54,15 @@ spec:
           ports:
             - containerPort: 5432
           volumeMounts:
+            - name: postgresql-config
+              mountPath: /etc/postgresql/postgresql.conf
+              subPath: postgresql.conf
             - name: postgresql-data
               mountPath: /var/lib/postgresql/data
       volumes:
         - name: postgresql-data
           persistentVolumeClaim:
             claimName: postgresql-data
+        - name: postgresql-config
+          configMap:
+            name: postgresql-config
