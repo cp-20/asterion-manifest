@@ -13,5 +13,6 @@ generators:
 
 configMapGenerator:
   - name: postgresql-config
+    namespace: postgresql
     files:
       - config/postgresql.conf
