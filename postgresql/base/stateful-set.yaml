@@ -21,6 +21,9 @@ spec:
             - postgres
             - -c
             - config_file=/etc/postgresql/postgresql.conf
+          securityContext:
+            runAsUser: 999
+            runAsGroup: 999
           env:
             - name: POSTGRES_PASSWORD
               valueFrom:
