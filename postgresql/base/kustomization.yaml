@@ -10,3 +10,8 @@ resources:
 
 generators:
   - ksops.yaml
+
+configMapGenerator:
+  - name: postgresql-config
+    files:
+      - config/postgresql.conf
