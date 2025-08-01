@@ -62,6 +62,8 @@ spec:
               subPath: postgresql.conf
             - name: postgresql-data
               mountPath: /var/lib/postgresql/data
+            - name: dshm
+              mountPath: /dev/shm
       volumes:
         - name: postgresql-data
           persistentVolumeClaim:
@@ -69,3 +71,7 @@ spec:
         - name: postgresql-config
           configMap:
             name: postgresql-config
+        - name: dshm
+          emptyDir:
+            medium: memory
+            sizeLimit: 256Mi
