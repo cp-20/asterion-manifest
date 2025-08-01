@@ -73,5 +73,5 @@ spec:
             name: postgresql-config
         - name: dshm
           emptyDir:
-            medium: memory
+            medium: Memory
             sizeLimit: 256Mi
