@@ -17,7 +17,7 @@ spec:
           restartPolicy: Never
           initContainers:
             - name: check-update-all-messages-job
-              image: bitnami/kubectl:latest@sha256:ef12c5016600f2d54ba86bdba0fbe2097b7b80b4236ff6a461f83fe94a46343c
+              image: bitnami/kubectl:latest@sha256:1bc359beb3ae3982591349df11db50b0917b0596e8bed8ab9cf0c8a84a3502d1
               command:
                 - /bin/sh
                 - -c
