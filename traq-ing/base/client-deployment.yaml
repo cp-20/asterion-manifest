@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: traq-ing-client
-          image: ghcr.io/cp-20/traq-ing-client:1.1.18
+          image: ghcr.io/cp-20/traq-ing-client:1.1.20
           resources:
             limits:
               memory: '512Mi'
