@@ -28,7 +28,7 @@ spec:
                   fi
           containers:
             - name: traq-ing-update-messages
-              image: ghcr.io/cp-20/traq-ing-server:1.1.18
+              image: ghcr.io/cp-20/traq-ing-server:1.1.20
               command: ['bun', 'run', 'run:update-messages']
               env:
                 - name: TRAQ_TOKEN
