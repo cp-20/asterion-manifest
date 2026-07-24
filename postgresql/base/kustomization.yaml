@@ -11,6 +11,9 @@ resources:
 generators:
   - ksops.yaml
 
+generatorOptions:
+  disableNameSuffixHash: true
+
 configMapGenerator:
   - name: postgresql-config
     namespace: postgresql
