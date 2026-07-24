@@ -17,4 +17,4 @@ patches:
 
 images:
   - name: ghcr.io/cp-20/web-comic-library-database
-    newTag: 457f2e9b4ff8a49e109ec098ce7f07503dd6299a
+    newTag: 226dcd23c07592570d5e01b69600d3a5fad09185

@@ -34,7 +34,7 @@ spec:
                 - /bin/sh
                 - -ceu
                 - |
-                  wal-g backup-push
+                  wal-g backup-push /var/lib/postgresql/data
                   wal-g delete retain FULL 5 --use-sentinel-time --confirm
               envFrom:
                 - secretRef:
@@ -46,6 +46,10 @@ spec:
                   value: auto
                 - name: AWS_S3_FORCE_PATH_STYLE
                   value: 'true'
+                - name: S3_ENABLE_VERSIONING
+                  value: disabled
+                - name: S3_MAX_RETRIES
+                  value: '3'
                 - name: PGDATABASE
                   value: postgres
                 - name: PGHOST
@@ -79,8 +83,15 @@ spec:
                     - ALL
                 readOnlyRootFilesystem: true
               volumeMounts:
+                - name: postgresql-data
+                  mountPath: /var/lib/postgresql/data
+                  readOnly: true
                 - name: tmp
                   mountPath: /tmp
           volumes:
+            - name: postgresql-data
+              persistentVolumeClaim:
+                claimName: postgresql-data
+                readOnly: true
             - name: tmp
               emptyDir: {}
