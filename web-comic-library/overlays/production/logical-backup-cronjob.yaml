@@ -42,6 +42,10 @@ spec:
                   value: auto
                 - name: AWS_S3_FORCE_PATH_STYLE
                   value: 'true'
+                - name: S3_ENABLE_VERSIONING
+                  value: disabled
+                - name: S3_MAX_RETRIES
+                  value: '3'
                 - name: PGDATABASE
                   value: web_comic_library
                 - name: PGHOST

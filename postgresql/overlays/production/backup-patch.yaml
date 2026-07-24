@@ -31,6 +31,10 @@ spec:
               value: auto
             - name: AWS_S3_FORCE_PATH_STYLE
               value: 'true'
+            - name: S3_ENABLE_VERSIONING
+              value: disabled
+            - name: S3_MAX_RETRIES
+              value: '3'
             - name: WALG_COMPRESSION_METHOD
               value: lz4
             - name: WALG_LIBSODIUM_KEY_TRANSFORM
