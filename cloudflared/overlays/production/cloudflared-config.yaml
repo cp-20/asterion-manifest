@@ -11,6 +11,11 @@ data:
     metrics: 0.0.0.0:2000
     no-autoupdate: true
     ingress:
+    - hostname: comic.cp20.dev
+      path: ^/api/.*
+      service: http://api.web-comic-library.svc.cluster.local:3001
+    - hostname: comic.cp20.dev
+      service: http://web.web-comic-library.svc.cluster.local:3000
     - hostname: traqing.cp20.dev
       service: http://traq-ing-client.traq-ing.svc.cluster.local:80
     - hostname: cd.cp20.dev
