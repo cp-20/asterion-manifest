@@ -1,2 +1,20 @@
 resources:
   - ../../base
+  - base-backup-cronjob.yaml
+
+generators:
+  - ksops.yaml
+
+configMapGenerator:
+  - name: postgresql-config
+    namespace: postgresql
+    behavior: merge
+    files:
+      - config/pg_hba.conf
+
+patches:
+  - path: backup-patch.yaml
+
+images:
+  - name: ghcr.io/cp-20/web-comic-library-database
+    newTag: 457f2e9b4ff8a49e109ec098ce7f07503dd6299a

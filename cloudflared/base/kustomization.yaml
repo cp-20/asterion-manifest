@@ -1,2 +1,3 @@
 resources:
   - cloudflared.yaml
+  - metrics-service.yaml

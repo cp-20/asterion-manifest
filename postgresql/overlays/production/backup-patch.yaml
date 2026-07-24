@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgresql
+  namespace: postgresql
+spec:
+  template:
+    spec:
+      containers:
+        - name: postgresql
+          image: ghcr.io/cp-20/web-comic-library-database:latest
+          command:
+            - postgres
+            - -c
+            - config_file=/etc/postgresql/postgresql.conf
+            - -c
+            - hba_file=/etc/postgresql/pg_hba.conf
+            - -c
+            - archive_mode=on
+            - -c
+            - archive_timeout=900s
+            - -c
+            - archive_command=/usr/local/bin/wal-g wal-push %p
+          envFrom:
+            - secretRef:
+                name: web-comic-library-backup
+          env:
+            - name: AWS_ENDPOINT
+              value: https://a43ad580a36eae6c78e37ef19e4580c3.r2.cloudflarestorage.com
+            - name: AWS_REGION
+              value: auto
+            - name: AWS_S3_FORCE_PATH_STYLE
+              value: 'true'
+            - name: WALG_COMPRESSION_METHOD
+              value: lz4
+            - name: WALG_LIBSODIUM_KEY_TRANSFORM
+              value: base64
+            - name: WALG_PREVENT_WAL_OVERWRITE
+              value: 'true'
+            - name: WALG_S3_PREFIX
+              value: s3://cp20-web-comic-library-backups/postgresql/16
+          volumeMounts:
+            - name: postgresql-config
+              mountPath: /etc/postgresql/pg_hba.conf
+              subPath: pg_hba.conf

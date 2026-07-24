@@ -3,11 +3,21 @@ kind: Kustomization
 
 resources:
   - ../../base
+  - logical-backup-cronjob.yaml
+  - worker-metrics-service.yaml
+
+generators:
+  - ksops.yaml
+
+patches:
+  - path: observability-patch.yaml
 
 images:
   - name: ghcr.io/cp-20/web-comic-library-web
-    newTag: bdb85504d1de4d42e2be08355316abd25c7538bd
+    newTag: 457f2e9b4ff8a49e109ec098ce7f07503dd6299a
   - name: ghcr.io/cp-20/web-comic-library-api
-    newTag: bdb85504d1de4d42e2be08355316abd25c7538bd
+    newTag: 457f2e9b4ff8a49e109ec098ce7f07503dd6299a
   - name: ghcr.io/cp-20/web-comic-library-worker
-    newTag: bdb85504d1de4d42e2be08355316abd25c7538bd
+    newTag: 457f2e9b4ff8a49e109ec098ce7f07503dd6299a
+  - name: ghcr.io/cp-20/web-comic-library-database
+    newTag: 457f2e9b4ff8a49e109ec098ce7f07503dd6299a

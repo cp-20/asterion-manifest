@@ -1,0 +1,44 @@
+global:
+  evaluation_interval: 30s
+  scrape_interval: 30s
+  external_labels:
+    cluster: asterion
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager.monitoring.svc.cluster.local:9093
+
+rule_files:
+  - /etc/prometheus/alerts.yml
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets:
+          - localhost:9090
+  - job_name: node
+    static_configs:
+      - targets:
+          - node-exporter.monitoring.svc.cluster.local:9100
+  - job_name: kube-state-metrics
+    static_configs:
+      - targets:
+          - kube-state-metrics.monitoring.svc.cluster.local:8080
+  - job_name: web-comic-library-api
+    static_configs:
+      - targets:
+          - api.web-comic-library.svc.cluster.local:3001
+  - job_name: web-comic-library-worker
+    static_configs:
+      - targets:
+          - worker-metrics.web-comic-library.svc.cluster.local:3002
+  - job_name: cloudflared
+    static_configs:
+      - targets:
+          - cloudflared-metrics.cloudflared.svc.cluster.local:2000
+  - job_name: argocd
+    static_configs:
+      - targets:
+          - argocd-metrics.argocd.svc.cluster.local:8082
