@@ -1,3 +1,8 @@
 resources:
   - ../../base
-  - cloudflared-config.yaml
+
+configMapGenerator:
+  - name: cloudflared
+    namespace: cloudflared
+    files:
+      - config.yaml=cloudflared-config.yaml
