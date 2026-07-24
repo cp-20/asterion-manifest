@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - rbac.yaml
+  - storage.yaml
+  - workloads.yaml
+  - services.yaml
+
+configMapGenerator:
+  - name: prometheus-config
+    namespace: monitoring
+    files:
+      - prometheus.yml=config/prometheus.yml
+      - alerts.yml=config/alerts.yml
+  - name: alertmanager-config
+    namespace: monitoring
+    files:
+      - alertmanager.yml=config/alertmanager.yml

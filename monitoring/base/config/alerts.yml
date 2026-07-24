@@ -1,0 +1,83 @@
+groups:
+  - name: asterion
+    rules:
+      - alert: ScrapeTargetDown
+        expr: up == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: '{{ $labels.job }} is unreachable'
+      - alert: NodeMemoryLow
+        expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes < 0.1
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: 'Asterion available memory is below 10%'
+      - alert: NodeCpuHigh
+        expr: 1 - avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) > 0.9
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: 'Asterion CPU usage is above 90%'
+      - alert: NodeDiskLow
+        expr: node_filesystem_avail_bytes{fstype!~"tmpfs|overlay",mountpoint="/"} / node_filesystem_size_bytes{fstype!~"tmpfs|overlay",mountpoint="/"} < 0.1
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          summary: 'Asterion root disk available space is below 10%'
+      - alert: PersistentVolumeClaimNotBound
+        expr: kube_persistentvolumeclaim_status_phase{phase!="Bound"} == 1
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: 'PVC {{ $labels.namespace }}/{{ $labels.persistentvolumeclaim }} is not Bound'
+      - alert: PodRestarted
+        expr: increase(kube_pod_container_status_restarts_total[10m]) > 0
+        labels:
+          severity: warning
+        annotations:
+          summary: 'Pod container {{ $labels.namespace }}/{{ $labels.pod }}/{{ $labels.container }} restarted'
+      - alert: ArgoCdOutOfSync
+        expr: argocd_app_info{sync_status!="Synced"} == 1
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: 'Argo CD application {{ $labels.name }} is {{ $labels.sync_status }}'
+      - alert: ArgoCdUnhealthy
+        expr: argocd_app_info{health_status!~"Healthy|Progressing"} == 1
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: 'Argo CD application {{ $labels.name }} health is {{ $labels.health_status }}'
+      - alert: JobQueueOverdue
+        expr: web_comic_library_jobs_overdue > 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: 'Web Comic Library has jobs overdue by at least ten minutes'
+      - alert: ConnectorConsecutiveFailures
+        expr: web_comic_library_connector_consecutive_failures >= 3
+        labels:
+          severity: critical
+        annotations:
+          summary: 'Connector has failed at least three times consecutively'
+      - alert: NotificationDeliveryFailed
+        expr: increase(web_comic_library_notification_failures_total[10m]) > 0
+        labels:
+          severity: critical
+        annotations:
+          summary: 'A notification delivery failed'
+      - alert: BackupJobFailed
+        expr: kube_job_status_failed{job_name=~"logical-backup.*|web-comic-library-base-backup.*"} > 0
+        labels:
+          severity: critical
+        annotations:
+          summary: 'Backup job {{ $labels.namespace }}/{{ $labels.job_name }} failed'
