@@ -14,10 +14,10 @@ patches:
 
 images:
   - name: ghcr.io/cp-20/web-comic-library-web
-    newTag: e38d9d9265d69b0edfaccf46d39fc3fc4fdd17b5
+    newTag: 4921bb7acf42b6730f62e5b9e49a807b78b60d83
   - name: ghcr.io/cp-20/web-comic-library-api
-    newTag: e38d9d9265d69b0edfaccf46d39fc3fc4fdd17b5
+    newTag: 4921bb7acf42b6730f62e5b9e49a807b78b60d83
   - name: ghcr.io/cp-20/web-comic-library-worker
-    newTag: e38d9d9265d69b0edfaccf46d39fc3fc4fdd17b5
+    newTag: 4921bb7acf42b6730f62e5b9e49a807b78b60d83
   - name: ghcr.io/cp-20/web-comic-library-database
     newTag: 226dcd23c07592570d5e01b69600d3a5fad09185
