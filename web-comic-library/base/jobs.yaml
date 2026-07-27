@@ -17,6 +17,10 @@ spec:
         - name: initialize-database
           image: postgres:16
           env:
+            - name: DATABASE_READY_TIMEOUT_SECONDS
+              value: '300'
+            - name: DATABASE_READY_INTERVAL_SECONDS
+              value: '5'
             - name: PGPASSWORD
               valueFrom:
                 secretKeyRef:
@@ -31,6 +35,18 @@ spec:
             - /bin/sh
             - -ceu
             - |
+              waited=0
+              while ! pg_isready \
+                --host postgresql-headless.postgresql.svc.cluster.local \
+                --username postgres \
+                --dbname postgres; do
+                if [ "$waited" -ge "$DATABASE_READY_TIMEOUT_SECONDS" ]; then
+                  echo "timed out waiting ${DATABASE_READY_TIMEOUT_SECONDS}s for PostgreSQL DNS resolution and connections" >&2
+                  exit 1
+                fi
+                sleep "$DATABASE_READY_INTERVAL_SECONDS"
+                waited=$((waited + DATABASE_READY_INTERVAL_SECONDS))
+              done
               psql \
                 --host postgresql-headless.postgresql.svc.cluster.local \
                 --username postgres \
@@ -85,6 +101,48 @@ spec:
         runAsUser: 1000
         seccompProfile:
           type: RuntimeDefault
+      initContainers:
+        - name: wait-for-database
+          image: postgres:16
+          env:
+            - name: DATABASE_READY_TIMEOUT_SECONDS
+              value: '300'
+            - name: DATABASE_READY_INTERVAL_SECONDS
+              value: '5'
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: web-comic-library-database
+                  key: password
+          command:
+            - /bin/sh
+            - -ceu
+            - |
+              waited=0
+              while ! pg_isready \
+                --host postgresql-headless.postgresql.svc.cluster.local \
+                --username web_comic_library \
+                --dbname web_comic_library; do
+                if [ "$waited" -ge "$DATABASE_READY_TIMEOUT_SECONDS" ]; then
+                  echo "timed out waiting ${DATABASE_READY_TIMEOUT_SECONDS}s for PostgreSQL DNS resolution and connections" >&2
+                  exit 1
+                fi
+                sleep "$DATABASE_READY_INTERVAL_SECONDS"
+                waited=$((waited + DATABASE_READY_INTERVAL_SECONDS))
+              done
+          resources:
+            requests:
+              cpu: 25m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
       containers:
         - name: migrate
           image: ghcr.io/cp-20/web-comic-library-worker:latest
