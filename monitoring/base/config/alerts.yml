@@ -56,28 +56,9 @@ groups:
           severity: critical
         annotations:
           summary: 'Argo CD application {{ $labels.name }} health is {{ $labels.health_status }}'
-      - alert: JobQueueOverdue
-        expr: web_comic_library_jobs_overdue > 0
-        for: 1m
+      - alert: PostgreSqlBackupJobFailed
+        expr: kube_job_status_failed{job_name=~"web-comic-library-base-backup.*"} > 0
         labels:
           severity: critical
         annotations:
-          summary: 'Web Comic Library has jobs overdue by at least ten minutes'
-      - alert: ConnectorConsecutiveFailures
-        expr: web_comic_library_connector_consecutive_failures >= 3
-        labels:
-          severity: critical
-        annotations:
-          summary: 'Connector has failed at least three times consecutively'
-      - alert: NotificationDeliveryFailed
-        expr: increase(web_comic_library_notification_failures_total[10m]) > 0
-        labels:
-          severity: critical
-        annotations:
-          summary: 'A notification delivery failed'
-      - alert: BackupJobFailed
-        expr: kube_job_status_failed{job_name=~"logical-backup.*|web-comic-library-base-backup.*"} > 0
-        labels:
-          severity: critical
-        annotations:
-          summary: 'Backup job {{ $labels.namespace }}/{{ $labels.job_name }} failed'
+          summary: 'PostgreSQL backup job {{ $labels.namespace }}/{{ $labels.job_name }} failed'

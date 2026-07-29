@@ -26,14 +26,6 @@ scrape_configs:
     static_configs:
       - targets:
           - kube-state-metrics.monitoring.svc.cluster.local:8080
-  - job_name: web-comic-library-api
-    static_configs:
-      - targets:
-          - api.web-comic-library.svc.cluster.local:3001
-  - job_name: web-comic-library-worker
-    static_configs:
-      - targets:
-          - worker-metrics.web-comic-library.svc.cluster.local:3002
   - job_name: cloudflared
     static_configs:
       - targets:
