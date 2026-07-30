@@ -1,13 +1,6 @@
 groups:
   - name: asterion
     rules:
-      - alert: ScrapeTargetDown
-        expr: up == 0
-        for: 2m
-        labels:
-          severity: critical
-        annotations:
-          summary: '{{ $labels.job }} is unreachable'
       - alert: NodeMemoryLow
         expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes < 0.1
         for: 10m
