@@ -23,7 +23,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: prometheus
-          image: quay.io/prometheus/prometheus:v3.13.1
+          image: quay.io/prometheus/prometheus:v3.13.2
           args:
             - --config.file=/etc/prometheus/prometheus.yml
             - --storage.tsdb.path=/prometheus
