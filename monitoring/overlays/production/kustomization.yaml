@@ -6,3 +6,6 @@ resources:
 
 generators:
   - ksops.yaml
+
+patches:
+  - path: host-ca.yaml

@@ -6,3 +6,6 @@ configMapGenerator:
     namespace: cloudflared
     files:
       - config.yaml=cloudflared-config.yaml
+
+patches:
+  - path: host-ca.yaml

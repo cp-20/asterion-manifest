@@ -1,0 +1,96 @@
+# Use the patched public CA store on the production node.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cert-manager
+  namespace: cert-manager
+spec:
+  template:
+    spec:
+      containers:
+        - name: cert-manager-controller
+          env:
+            - name: SSL_CERT_FILE
+              value: /etc/ssl/certs/ca-certificates.crt
+            - name: SSL_CERT_DIR
+              value: /etc/ssl/certs
+          volumeMounts:
+            - name: host-ca-certs
+              mountPath: /etc/ssl/certs
+              readOnly: true
+            - name: host-ca-sources
+              mountPath: /usr/share/ca-certificates
+              readOnly: true
+      volumes:
+        - name: host-ca-certs
+          hostPath:
+            path: /etc/ssl/certs
+            type: Directory
+        - name: host-ca-sources
+          hostPath:
+            path: /usr/share/ca-certificates
+            type: Directory
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cert-manager-cainjector
+  namespace: cert-manager
+spec:
+  template:
+    spec:
+      containers:
+        - name: cert-manager-cainjector
+          env:
+            - name: SSL_CERT_FILE
+              value: /etc/ssl/certs/ca-certificates.crt
+            - name: SSL_CERT_DIR
+              value: /etc/ssl/certs
+          volumeMounts:
+            - name: host-ca-certs
+              mountPath: /etc/ssl/certs
+              readOnly: true
+            - name: host-ca-sources
+              mountPath: /usr/share/ca-certificates
+              readOnly: true
+      volumes:
+        - name: host-ca-certs
+          hostPath:
+            path: /etc/ssl/certs
+            type: Directory
+        - name: host-ca-sources
+          hostPath:
+            path: /usr/share/ca-certificates
+            type: Directory
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cert-manager-webhook
+  namespace: cert-manager
+spec:
+  template:
+    spec:
+      containers:
+        - name: cert-manager-webhook
+          env:
+            - name: SSL_CERT_FILE
+              value: /etc/ssl/certs/ca-certificates.crt
+            - name: SSL_CERT_DIR
+              value: /etc/ssl/certs
+          volumeMounts:
+            - name: host-ca-certs
+              mountPath: /etc/ssl/certs
+              readOnly: true
+            - name: host-ca-sources
+              mountPath: /usr/share/ca-certificates
+              readOnly: true
+      volumes:
+        - name: host-ca-certs
+          hostPath:
+            path: /etc/ssl/certs
+            type: Directory
+        - name: host-ca-sources
+          hostPath:
+            path: /usr/share/ca-certificates
+            type: Directory

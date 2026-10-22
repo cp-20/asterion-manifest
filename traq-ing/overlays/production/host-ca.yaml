@@ -1,0 +1,146 @@
+# Use the patched public CA store on the production node.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traq-ing-client
+  namespace: traq-ing
+spec:
+  template:
+    spec:
+      containers:
+        - name: traq-ing-client
+          env:
+            - name: SSL_CERT_FILE
+              value: /etc/ssl/certs/ca-certificates.crt
+            - name: SSL_CERT_DIR
+              value: /etc/ssl/certs
+          volumeMounts:
+            - name: host-ca-certs
+              mountPath: /etc/ssl/certs
+              readOnly: true
+            - name: host-ca-sources
+              mountPath: /usr/share/ca-certificates
+              readOnly: true
+      volumes:
+        - name: host-ca-certs
+          hostPath:
+            path: /etc/ssl/certs
+            type: Directory
+        - name: host-ca-sources
+          hostPath:
+            path: /usr/share/ca-certificates
+            type: Directory
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traq-ing-server
+  namespace: traq-ing
+spec:
+  template:
+    spec:
+      containers:
+        - name: traq-ing-server
+          env:
+            - name: SSL_CERT_FILE
+              value: /etc/ssl/certs/ca-certificates.crt
+            - name: SSL_CERT_DIR
+              value: /etc/ssl/certs
+          volumeMounts:
+            - name: host-ca-certs
+              mountPath: /etc/ssl/certs
+              readOnly: true
+            - name: host-ca-sources
+              mountPath: /usr/share/ca-certificates
+              readOnly: true
+      volumes:
+        - name: host-ca-certs
+          hostPath:
+            path: /etc/ssl/certs
+            type: Directory
+        - name: host-ca-sources
+          hostPath:
+            path: /usr/share/ca-certificates
+            type: Directory
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: traq-ing-update-messages-job
+  namespace: traq-ing
+spec:
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: traq-ing-update-messages
+              env:
+                - name: SSL_CERT_FILE
+                  value: /etc/ssl/certs/ca-certificates.crt
+                - name: SSL_CERT_DIR
+                  value: /etc/ssl/certs
+              volumeMounts:
+                - name: host-ca-certs
+                  mountPath: /etc/ssl/certs
+                  readOnly: true
+                - name: host-ca-sources
+                  mountPath: /usr/share/ca-certificates
+                  readOnly: true
+          initContainers:
+            - name: check-update-all-messages-job
+              env:
+                - name: SSL_CERT_FILE
+                  value: /etc/ssl/certs/ca-certificates.crt
+                - name: SSL_CERT_DIR
+                  value: /etc/ssl/certs
+              volumeMounts:
+                - name: host-ca-certs
+                  mountPath: /etc/ssl/certs
+                  readOnly: true
+                - name: host-ca-sources
+                  mountPath: /usr/share/ca-certificates
+                  readOnly: true
+          volumes:
+            - name: host-ca-certs
+              hostPath:
+                path: /etc/ssl/certs
+                type: Directory
+            - name: host-ca-sources
+              hostPath:
+                path: /usr/share/ca-certificates
+                type: Directory
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: traq-ing-update-statistics-job
+  namespace: traq-ing
+spec:
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: traq-ing-update-statistics
+              env:
+                - name: SSL_CERT_FILE
+                  value: /etc/ssl/certs/ca-certificates.crt
+                - name: SSL_CERT_DIR
+                  value: /etc/ssl/certs
+              volumeMounts:
+                - name: host-ca-certs
+                  mountPath: /etc/ssl/certs
+                  readOnly: true
+                - name: host-ca-sources
+                  mountPath: /usr/share/ca-certificates
+                  readOnly: true
+          volumes:
+            - name: host-ca-certs
+              hostPath:
+                path: /etc/ssl/certs
+                type: Directory
+            - name: host-ca-sources
+              hostPath:
+                path: /usr/share/ca-certificates
+                type: Directory

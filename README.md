@@ -1,5 +1,20 @@
 # k8s manifest
 
+## Production CA trust
+
+Production workloads mount the node's public `/etc/ssl/certs` and
+`/usr/share/ca-certificates` directories read-only. Update `ca-certificates` on
+every production node before deploying these overlays. Ubuntu 24.04 requires
+`20260816ubuntu0.24.04.1` or newer for the October 2026 eMudhra incident.
+Private keys are not mounted. Restart workloads after CA updates because some
+runtimes cache their trust store.
+
+These mounts update system CA trust. Runtimes with embedded roots, such as Bun,
+also require a runtime-specific fix. Verify both
+`https://dv-g3b-emudhra.we-have-a-problem.com/` and
+`https://dv-g3b-aaa-emudhra.we-have-a-problem.com/` fail certificate validation
+while normal HTTPS requests continue to work.
+
 ## セットアップ
 
 ### 共通 (ツールのセットアップ)
