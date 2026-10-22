@@ -13,6 +13,7 @@ configMapGenerator:
       - config/pg_hba.conf
 
 patches:
+  - path: host-ca.yaml
   - path: backup-patch.yaml
 
 images:

@@ -1,0 +1,272 @@
+# Use the patched public CA store on the production node.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-applicationset-controller
+spec:
+  template:
+    spec:
+      containers:
+        - name: argocd-applicationset-controller
+          env:
+            - name: SSL_CERT_FILE
+              value: /etc/ssl/certs/ca-certificates.crt
+            - name: SSL_CERT_DIR
+              value: /etc/ssl/certs
+          volumeMounts:
+            - name: host-ca-certs
+              mountPath: /etc/ssl/certs
+              readOnly: true
+            - name: host-ca-sources
+              mountPath: /usr/share/ca-certificates
+              readOnly: true
+      volumes:
+        - name: host-ca-certs
+          hostPath:
+            path: /etc/ssl/certs
+            type: Directory
+        - name: host-ca-sources
+          hostPath:
+            path: /usr/share/ca-certificates
+            type: Directory
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-dex-server
+spec:
+  template:
+    spec:
+      containers:
+        - name: dex
+          env:
+            - name: SSL_CERT_FILE
+              value: /etc/ssl/certs/ca-certificates.crt
+            - name: SSL_CERT_DIR
+              value: /etc/ssl/certs
+          volumeMounts:
+            - name: host-ca-certs
+              mountPath: /etc/ssl/certs
+              readOnly: true
+            - name: host-ca-sources
+              mountPath: /usr/share/ca-certificates
+              readOnly: true
+      initContainers:
+        - name: copyutil
+          env:
+            - name: SSL_CERT_FILE
+              value: /etc/ssl/certs/ca-certificates.crt
+            - name: SSL_CERT_DIR
+              value: /etc/ssl/certs
+          volumeMounts:
+            - name: host-ca-certs
+              mountPath: /etc/ssl/certs
+              readOnly: true
+            - name: host-ca-sources
+              mountPath: /usr/share/ca-certificates
+              readOnly: true
+      volumes:
+        - name: host-ca-certs
+          hostPath:
+            path: /etc/ssl/certs
+            type: Directory
+        - name: host-ca-sources
+          hostPath:
+            path: /usr/share/ca-certificates
+            type: Directory
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-notifications-controller
+spec:
+  template:
+    spec:
+      containers:
+        - name: argocd-notifications-controller
+          env:
+            - name: SSL_CERT_FILE
+              value: /etc/ssl/certs/ca-certificates.crt
+            - name: SSL_CERT_DIR
+              value: /etc/ssl/certs
+          volumeMounts:
+            - name: host-ca-certs
+              mountPath: /etc/ssl/certs
+              readOnly: true
+            - name: host-ca-sources
+              mountPath: /usr/share/ca-certificates
+              readOnly: true
+      volumes:
+        - name: host-ca-certs
+          hostPath:
+            path: /etc/ssl/certs
+            type: Directory
+        - name: host-ca-sources
+          hostPath:
+            path: /usr/share/ca-certificates
+            type: Directory
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-redis
+spec:
+  template:
+    spec:
+      containers:
+        - name: redis
+          env:
+            - name: SSL_CERT_FILE
+              value: /etc/ssl/certs/ca-certificates.crt
+            - name: SSL_CERT_DIR
+              value: /etc/ssl/certs
+          volumeMounts:
+            - name: host-ca-certs
+              mountPath: /etc/ssl/certs
+              readOnly: true
+            - name: host-ca-sources
+              mountPath: /usr/share/ca-certificates
+              readOnly: true
+      initContainers:
+        - name: secret-init
+          env:
+            - name: SSL_CERT_FILE
+              value: /etc/ssl/certs/ca-certificates.crt
+            - name: SSL_CERT_DIR
+              value: /etc/ssl/certs
+          volumeMounts:
+            - name: host-ca-certs
+              mountPath: /etc/ssl/certs
+              readOnly: true
+            - name: host-ca-sources
+              mountPath: /usr/share/ca-certificates
+              readOnly: true
+      volumes:
+        - name: host-ca-certs
+          hostPath:
+            path: /etc/ssl/certs
+            type: Directory
+        - name: host-ca-sources
+          hostPath:
+            path: /usr/share/ca-certificates
+            type: Directory
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-repo-server
+spec:
+  template:
+    spec:
+      containers:
+        - name: argocd-repo-server
+          env:
+            - name: SSL_CERT_FILE
+              value: /etc/ssl/certs/ca-certificates.crt
+            - name: SSL_CERT_DIR
+              value: /etc/ssl/certs
+          volumeMounts:
+            - name: host-ca-certs
+              mountPath: /etc/ssl/certs
+              readOnly: true
+            - name: host-ca-sources
+              mountPath: /usr/share/ca-certificates
+              readOnly: true
+      initContainers:
+        - name: install-ksops
+          env:
+            - name: SSL_CERT_FILE
+              value: /etc/ssl/certs/ca-certificates.crt
+            - name: SSL_CERT_DIR
+              value: /etc/ssl/certs
+          volumeMounts:
+            - name: host-ca-certs
+              mountPath: /etc/ssl/certs
+              readOnly: true
+            - name: host-ca-sources
+              mountPath: /usr/share/ca-certificates
+              readOnly: true
+        - name: copyutil
+          env:
+            - name: SSL_CERT_FILE
+              value: /etc/ssl/certs/ca-certificates.crt
+            - name: SSL_CERT_DIR
+              value: /etc/ssl/certs
+          volumeMounts:
+            - name: host-ca-certs
+              mountPath: /etc/ssl/certs
+              readOnly: true
+            - name: host-ca-sources
+              mountPath: /usr/share/ca-certificates
+              readOnly: true
+      volumes:
+        - name: host-ca-certs
+          hostPath:
+            path: /etc/ssl/certs
+            type: Directory
+        - name: host-ca-sources
+          hostPath:
+            path: /usr/share/ca-certificates
+            type: Directory
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-server
+spec:
+  template:
+    spec:
+      containers:
+        - name: argocd-server
+          env:
+            - name: SSL_CERT_FILE
+              value: /etc/ssl/certs/ca-certificates.crt
+            - name: SSL_CERT_DIR
+              value: /etc/ssl/certs
+          volumeMounts:
+            - name: host-ca-certs
+              mountPath: /etc/ssl/certs
+              readOnly: true
+            - name: host-ca-sources
+              mountPath: /usr/share/ca-certificates
+              readOnly: true
+      volumes:
+        - name: host-ca-certs
+          hostPath:
+            path: /etc/ssl/certs
+            type: Directory
+        - name: host-ca-sources
+          hostPath:
+            path: /usr/share/ca-certificates
+            type: Directory
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: argocd-application-controller
+spec:
+  template:
+    spec:
+      containers:
+        - name: argocd-application-controller
+          env:
+            - name: SSL_CERT_FILE
+              value: /etc/ssl/certs/ca-certificates.crt
+            - name: SSL_CERT_DIR
+              value: /etc/ssl/certs
+          volumeMounts:
+            - name: host-ca-certs
+              mountPath: /etc/ssl/certs
+              readOnly: true
+            - name: host-ca-sources
+              mountPath: /usr/share/ca-certificates
+              readOnly: true
+      volumes:
+        - name: host-ca-certs
+          hostPath:
+            path: /etc/ssl/certs
+            type: Directory
+        - name: host-ca-sources
+          hostPath:
+            path: /usr/share/ca-certificates
+            type: Directory
