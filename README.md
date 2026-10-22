@@ -12,8 +12,9 @@ runtimes cache their trust store.
 traQing also preloads `traq-ing/overlays/production/bun-ca-preload.js` so its
 outgoing fetch requests use only the patched CA bundle. Its production overlay
 supplies Bun 1.4.3 from a digest-pinned init container; Bun 1.3.14 accepted an
-affected chain even with an explicit CA override. `BUN_OPTIONS` and `PATH` keep
-the same mitigation active in the nested server and scheduled-job processes.
+affected chain even with an explicit CA override. The server and scheduled jobs
+run their entry files directly with `--preload`, so the mitigation applies in
+the process making the requests. `PATH` also selects the supplied Bun binary.
 Keep the preload until a released Bun version distrusts the affected roots by
 default. Other runtimes with embedded roots also require their own fix.
 

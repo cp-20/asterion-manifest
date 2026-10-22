@@ -47,8 +47,6 @@ spec:
               value: /etc/ssl/certs/ca-certificates.crt
             - name: SSL_CERT_DIR
               value: /etc/ssl/certs
-            - name: BUN_OPTIONS
-              value: "--preload /etc/plexus-tls/preload.js"
             - name: PATH
               value: /opt/plexus-bun:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
           volumeMounts:
@@ -66,8 +64,10 @@ spec:
               readOnly: true
           command:
             - /opt/plexus-bun/bun
-            - run
-            - start:server
+            - "--preload"
+            - /etc/plexus-tls/preload.js
+            - ./src/index.ts
+          workingDir: /app/apps/server
       volumes:
         - name: host-ca-certs
           hostPath:
@@ -111,8 +111,6 @@ spec:
                   value: /etc/ssl/certs/ca-certificates.crt
                 - name: SSL_CERT_DIR
                   value: /etc/ssl/certs
-                - name: BUN_OPTIONS
-                  value: "--preload /etc/plexus-tls/preload.js"
                 - name: PATH
                   value: /opt/plexus-bun:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
               volumeMounts:
@@ -130,8 +128,10 @@ spec:
                   readOnly: true
               command:
                 - /opt/plexus-bun/bun
-                - run
-                - run:update-messages
+                - "--preload"
+                - /etc/plexus-tls/preload.js
+                - ./src/traQ/scripts/update-messages.ts
+              workingDir: /app/apps/server
           initContainers:
             - name: install-patched-bun
               image: oven/bun:1.4.3@sha256:ec06c3b6cea04192ae6770c434f668ca41d343ad19fa6472216c7b48be39c598
@@ -188,8 +188,6 @@ spec:
                   value: /etc/ssl/certs/ca-certificates.crt
                 - name: SSL_CERT_DIR
                   value: /etc/ssl/certs
-                - name: BUN_OPTIONS
-                  value: "--preload /etc/plexus-tls/preload.js"
                 - name: PATH
                   value: /opt/plexus-bun:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
               volumeMounts:
@@ -207,8 +205,10 @@ spec:
                   readOnly: true
               command:
                 - /opt/plexus-bun/bun
-                - run
-                - run:update-statistics
+                - "--preload"
+                - /etc/plexus-tls/preload.js
+                - ./src/traQ/scripts/update-statistics.ts
+              workingDir: /app/apps/server
           volumes:
             - name: host-ca-certs
               hostPath:
