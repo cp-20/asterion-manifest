@@ -9,11 +9,21 @@ every production node before deploying these overlays. Ubuntu 24.04 requires
 Private keys are not mounted. Restart workloads after CA updates because some
 runtimes cache their trust store.
 
-These mounts update system CA trust. Runtimes with embedded roots, such as Bun,
-also require a runtime-specific fix. Verify both
+traQing also preloads `traq-ing/overlays/production/bun-ca-preload.js` so its
+outgoing fetch requests use only the patched CA bundle. Its production overlay
+supplies Bun 1.4.3 from a digest-pinned init container; Bun 1.3.14 accepted an
+affected chain even with an explicit CA override. `BUN_OPTIONS` and `PATH` keep
+the same mitigation active in the nested server and scheduled-job processes.
+Keep the preload until a released Bun version distrusts the affected roots by
+default. Other runtimes with embedded roots also require their own fix.
+
+Verify both
 `https://dv-g3b-emudhra.we-have-a-problem.com/` and
 `https://dv-g3b-aaa-emudhra.we-have-a-problem.com/` fail certificate validation
 while normal HTTPS requests continue to work.
+
+Run the preload check with
+`bun test traq-ing/overlays/production/bun-ca-preload.test.js`.
 
 ## セットアップ
 

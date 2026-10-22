@@ -4,3 +4,8 @@ resources:
 patches:
   - path: host-ca.yaml
 
+configMapGenerator:
+  - name: bun-ca-preload
+    namespace: traq-ing
+    files:
+      - preload.js=bun-ca-preload.js
