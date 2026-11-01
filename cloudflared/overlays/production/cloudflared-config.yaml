@@ -9,4 +9,6 @@ ingress:
     service: http://argocd-server.argocd.svc.cluster.local:443
   - hostname: adminer.cp20.dev
     service: http://adminer.postgresql.svc.cluster.local:8080
+  - hostname: tsubame-mcp.cp20.dev
+    service: http://tsubame-mcp.tsubame-mcp.svc.cluster.local:8080
   - service: http_status:404
