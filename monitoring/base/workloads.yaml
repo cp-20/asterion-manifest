@@ -223,7 +223,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: node-exporter
-          image: quay.io/prometheus/node-exporter:v1.12.1
+          image: quay.io/prometheus/node-exporter:v1.13.1
           args:
             - --path.procfs=/host/proc
             - --path.rootfs=/host/root
