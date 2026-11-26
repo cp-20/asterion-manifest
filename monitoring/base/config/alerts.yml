@@ -49,9 +49,3 @@ groups:
           severity: critical
         annotations:
           summary: 'Argo CD application {{ $labels.name }} health is {{ $labels.health_status }}'
-      - alert: PostgreSqlBackupJobFailed
-        expr: kube_job_status_failed{job_name=~"web-comic-library-base-backup.*"} > 0
-        labels:
-          severity: critical
-        annotations:
-          summary: 'PostgreSQL backup job {{ $labels.namespace }}/{{ $labels.job_name }} failed'

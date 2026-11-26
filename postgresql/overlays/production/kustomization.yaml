@@ -1,9 +1,5 @@
 resources:
   - ../../base
-  - base-backup-cronjob.yaml
-
-generators:
-  - ksops.yaml
 
 configMapGenerator:
   - name: postgresql-config
@@ -14,7 +10,7 @@ configMapGenerator:
 
 patches:
   - path: host-ca.yaml
-  - path: backup-patch.yaml
+  - path: database-image-patch.yaml
 
 images:
   - name: ghcr.io/cp-20/web-comic-library-database
