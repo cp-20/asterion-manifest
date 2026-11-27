@@ -24,5 +24,16 @@
     "managerFilePatterns": [
       "/.+\\.ya?ml$/"
     ]
-  }
+  },
+  "packageRules": [
+    {
+      "description": "ARC controller and runner scale set charts must share one version (also bump the CRD tag in .github/setup-crd.sh)",
+      "matchDepNames": [
+        "gha-runner-scale-set-controller",
+        "gha-runner-scale-set"
+      ],
+      "groupName": "actions-runner-controller",
+      "automerge": false
+    }
+  ]
 }

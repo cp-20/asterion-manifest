@@ -15,3 +15,6 @@ python3 openapi2jsonschema.py https://raw.githubusercontent.com/traefik/traefik/
 
 # renovate:github-url
 python3 openapi2jsonschema.py https://github.com/cert-manager/cert-manager/releases/download/v1.19.4/cert-manager.yaml
+
+# Keep the tag in sync with the ARC chart version in arc-systems and arc-runners.
+python3 openapi2jsonschema.py https://raw.githubusercontent.com/actions/actions-runner-controller/gha-runner-scale-set-0.15.1/charts/gha-runner-scale-set-controller/crds/actions.github.com_autoscalingrunnersets.yaml

@@ -1,0 +1,41 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Runner scale set for cp-20/kaggle-elf-calculator.
+# Use it in workflows with `runs-on: asterion-kaggle`.
+# The chart version must match the controller in ../../arc-systems.
+helmCharts:
+  - name: gha-runner-scale-set
+    repo: oci://ghcr.io/actions/actions-runner-controller-charts
+    version: 0.15.1
+    releaseName: asterion-kaggle
+    namespace: arc-runners
+    # Let helm merge values: kustomize cannot override the chart default map
+    # for githubConfigSecret with the name of a pre-defined secret.
+    valuesMerge: replace
+    valuesInline:
+      githubConfigUrl: https://github.com/cp-20/kaggle-elf-calculator
+      # Pre-defined secret from secrets/arc-github-app.yaml (ksops).
+      githubConfigSecret: arc-github-app
+      runnerScaleSetName: asterion-kaggle
+      minRunners: 0
+      maxRunners: 2
+      # Set explicitly so rendering does not depend on a cluster lookup.
+      controllerServiceAccount:
+        namespace: arc-systems
+        name: arc-gha-rs-controller
+      template:
+        spec:
+          containers:
+            - name: runner
+              image: ghcr.io/actions/actions-runner:latest
+              command: ["/home/runner/run.sh"]
+              resources:
+                requests:
+                  cpu: '1'
+                  memory: 2Gi
+                limits:
+                  memory: 4Gi
+
+generators:
+  - ksops.yaml
