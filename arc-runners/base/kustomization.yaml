@@ -28,7 +28,7 @@ helmCharts:
         spec:
           containers:
             - name: runner
-              image: ghcr.io/actions/actions-runner:latest
+              image: ghcr.io/actions/actions-runner:latest@sha256:6d0b2d80d80f143f77dcb676e50920100bbb547e39e883454d57f45ab8c31300
               command: ["/home/runner/run.sh"]
               resources:
                 requests:
